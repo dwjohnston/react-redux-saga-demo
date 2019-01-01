@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import logo from './logo.svg';
 import { Provider } from 'react-redux'
 import configureStore from './store';
@@ -8,8 +8,15 @@ import { fetchUsersRequest } from './redux/actions';
 import PostList from './components/PostList';
 import { withStyles } from '@material-ui/core/styles';
 import UserCard from './components/UserCard';
-import { Grid, Card } from '@material-ui/core';
+import { Grid, Card, Typography, Snackbar } from '@material-ui/core';
 import TodosList from './components/TodosList';
+
+
+const ErrorMessage = ({ message }) => {
+  return <div>
+    <Typography color="error" style={{ fontWeight: "bold" }} align="center"> ERROR! {message}</Typography>
+  </div>
+};
 
 class App extends Component {
 
@@ -19,26 +26,34 @@ class App extends Component {
 
   render() {
 
-    const { classes } = this.props;
+    const { classes, error } = this.props;
     return (
 
-      <main className={classes.root}>
-        <Card style={{ gridArea: "userList" }}>
-          <UserList />
-        </Card>
+      <Fragment>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={error}
+          message={<ErrorMessage message={error} />}
+        />
+        < main className={classes.root} >
+          <Card style={{ gridArea: "userList" }}>
+            <UserList />
+          </Card>
 
-        <Card style={{ gridArea: "userCard" }} >
-          <UserCard />
-        </Card>
+          <Card style={{ gridArea: "userCard" }} >
+            <UserCard />
+          </Card>
 
-        <Card style={{ gridArea: "postList" }}>
-          <PostList />
-        </Card>
+          <Card style={{ gridArea: "postList" }}>
+            <PostList />
+          </Card>
 
-        <Card style={{ gridArea: "todoList", overflowY: "auto" }}>
-          <TodosList />
-        </Card>
-      </main>
+          <Card style={{ gridArea: "todoList", overflowY: "auto" }}>
+            <TodosList />
+          </Card>
+        </main >
+
+      </Fragment>
     );
   }
 }
@@ -62,7 +77,9 @@ const mapStateToProps = (
   state,
   ownProps
 ) => {
-  return {};
+  return {
+    error: state.error.message
+  };
 };
 
 const mapDispatchToProps = dispatch => {

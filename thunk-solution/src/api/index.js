@@ -10,10 +10,8 @@ export const makeApiCall = async function (uri) {
         const response = await axios(BASE_URL + uri);
         return response.data;
     } catch (err) {
-        console.err(err);
-
-        //Perhaps we want to format our error message our own way here
-        throw new Error(err.message);
+        //We will handle this in the middleware
+        throw err;
     }
 }
 

@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Card, ListItem, List, ListItemText, Typography } from '@material-ui/core';
-import { fetchPostsForUserRequest, postIsSpecial } from '../redux/actions';
+import { fetchPostsForUserRequest } from '../redux/actions';
+import { postIsSpecial } from "../util/isSpecial";
 
 const UserList = ({ classes, posts }) => {
     return (

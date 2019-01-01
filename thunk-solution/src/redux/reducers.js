@@ -41,12 +41,20 @@ const selectedUser = (state = { id: null }, action) => {
     }
 
 }
+const error = (state = { message: null }, action) => {
+
+    switch (action.type) {
+        case Action.FATAL_ERROR: return { message: action.payload.message };
+        default: return state;
+    }
+}
 
 const rootReducer = combineReducers({
     users,
     posts,
     todos,
-    selectedUser
+    selectedUser,
+    error
 });
 
 

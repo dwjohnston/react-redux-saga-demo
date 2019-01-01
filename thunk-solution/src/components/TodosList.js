@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 const TodosList = ({ classes, todos }) => {
     return (
         <Fragment>
-
             <Typography variant="h3"> Todos</Typography>
             <List >
                 {todos && todos.map(todo => (

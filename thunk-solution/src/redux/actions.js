@@ -1,10 +1,20 @@
 import { fetchUsers, fetchPostsForUser, fetchTodosForUser } from "../api";
+import { hasSpecialPosts } from "../util/isSpecial";
 
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const FETCH_POSTS_FOR_USER_SUCCESS = 'FETCH_POSTS_FOR_USER_SUCCESS';
 export const FETCH_TODOS_FOR_USER_SUCCESS = "FETCH_TODOS_FOR_USER_SUCCESS";
 
+export const FATAL_ERROR = "FATAL_ERROR";
+
 export const SELECT_USER = "SELECT_USER";
+
+export const fatalError = err => ({
+    type: FATAL_ERROR,
+    payload: {
+        message: err.message
+    }
+});
 
 export const fetchUsersRequest = () => async (dispatch) => {
 
@@ -18,7 +28,7 @@ export const fetchUsersRequest = () => async (dispatch) => {
         });
     }
     catch (err) {
-        //FETCH_USERS_FAILURE
+        dispatch(fatalError(err));
     }
 }
 
@@ -26,6 +36,7 @@ export const fetchTodosForUserRequest = userId => async dispatch => {
 
     try {
         const todos = await fetchTodosForUser(userId);
+
         dispatch({
             type: FETCH_TODOS_FOR_USER_SUCCESS,
             payload: {
@@ -35,7 +46,7 @@ export const fetchTodosForUserRequest = userId => async dispatch => {
         });
     }
     catch (err) {
-
+        dispatch(fatalError(err));
     }
 }
 
@@ -51,18 +62,13 @@ export const selectUser = id => async dispatch => {
     dispatch(fetchPostsForUserRequest(id));
 }
 
-export const postIsSpecial = (post) => {
-    return post.title.startsWith('voluptate');
-};
 
-const hasSpecialPosts = (posts) => {
-    return posts.some(post => postIsSpecial(post));
-}
 
 export const fetchPostsForUserRequest = (userId) => async (dispatch) => {
 
     try {
         const posts = await fetchPostsForUser(userId);
+        console.log(posts);
         dispatch({
             type: FETCH_POSTS_FOR_USER_SUCCESS,
             payload: {
@@ -77,7 +83,7 @@ export const fetchPostsForUserRequest = (userId) => async (dispatch) => {
 
     }
     catch (err) {
-
+        dispatch(fatalError(err));
     }
 
 }; 
