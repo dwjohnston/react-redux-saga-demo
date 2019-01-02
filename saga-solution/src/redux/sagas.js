@@ -19,6 +19,7 @@ export function* fetchPostsForUserSaga(action) {
 
     try {
         const posts = yield call(fetchPostsForUser, id);
+        console.log(posts);
         yield put({
             type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
             payload: {
