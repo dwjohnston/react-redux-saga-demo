@@ -15,22 +15,24 @@ export function* watchSelectUser(action) {
 }
 
 export function* fetchPostsForUserSaga(action) {
-    const id = action.payload.id;
+    const userId = action.payload.id;
 
     try {
-        const posts = yield call(fetchPostsForUser, id);
+        //We could do: 
+        //const posts = yield fetchPostsForUser(userId);
+        const posts = yield call(fetchPostsForUser, userId);
         console.log(posts);
         yield put({
             type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
             payload: {
                 posts,
-                userId: id
+                userId: userId
             }
         });
 
         const hasSpecial = yield call(hasSpecialPosts, posts);
         if (hasSpecial) {
-            yield put(Actions.fetchTodosForUserRequest(id));
+            yield put(Actions.fetchTodosForUserRequest(userId));
         }
     }
 

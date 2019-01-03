@@ -68,7 +68,6 @@ export const fetchPostsForUserRequest = (userId) => async (dispatch) => {
 
     try {
         const posts = await fetchPostsForUser(userId);
-        console.log(posts);
         dispatch({
             type: FETCH_POSTS_FOR_USER_SUCCESS,
             payload: {

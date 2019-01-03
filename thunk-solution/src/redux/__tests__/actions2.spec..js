@@ -1,8 +1,8 @@
 // The module we are testing
 import * as Actions from "../actions";
 
+//These modules are dependencies we are going to mock
 import * as special from "../../util/isSpecial";
-//The api module is a dependency we are going to mock
 import * as api from "../../api";
 
 
@@ -13,23 +13,6 @@ describe("fetchTodosForUserRequest", () => {
     beforeEach(() => {
         mockDispatch = jest.fn();
     })
-
-    it("calls the async fetchTodosForUser function", () => {
-
-        //Mock the api function 
-        api.fetchTodosForUser = jest.fn();
-
-        //Create the action (an async function)
-        const action = Actions.fetchTodosForUserRequest(1);
-
-        //The action is called by the redux-thunk middleware, we put our own mocked dispatch function in
-        action(mockDispatch);
-
-        //Make our assertions here - in this case - that the api function was called. 
-        expect(api.fetchTodosForUser).toBeCalledWith(1);
-
-
-    });
 
     it("if api call is successful, it dispatches a success action", async () => {
         //Mock a successful response
@@ -85,14 +68,6 @@ describe("fetchPostsForUserRequest", () => {
     beforeEach(() => {
         mockDispatch = jest.fn();
     })
-
-    it("calls the async fetchPostsForUser function", () => {
-        api.fetchPostsForUser = jest.fn();
-        const action = Actions.fetchPostsForUserRequest(4);
-
-        action(mockDispatch);
-        expect(api.fetchPostsForUser).toBeCalledWith(4);
-    });
 
     describe("if api call is successful", () => {
         //Mock a successful response
