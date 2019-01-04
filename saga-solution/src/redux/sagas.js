@@ -1,6 +1,5 @@
 import * as Actions from "./actions";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import { makeApiCall } from "../api";
 import { fetchUsers, fetchPostsForUser, fetchTodosForUser } from "../api";
 import { hasSpecialPosts } from "../util/isSpecial";
 
@@ -15,15 +14,22 @@ export function* selectUserSaga(action) {
     yield put(Actions.fetchPostsForUserRequest(id));
 }
 
-
-
 export function* fetchPostsForUserSaga(action) {
     const userId = action.payload.id;
 
     try {
+        const posts = yield call(fetchPostsForUser, userId);
+
+
+
         //We could do: 
         //const posts = yield fetchPostsForUser(userId);
-        const posts = yield call(fetchPostsForUser, userId);
+        //redux-saga handles yielded promises fine, 
+        //But the advantage of using call is it makes testing easier.
+
+        //call() just creates an object, it doesn't actually do anything.
+        console.log(call(fetchPostsForUser, userId)); //demo
+
         yield put({
             type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
             payload: {

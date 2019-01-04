@@ -105,3 +105,14 @@ try {
 } catch (err) {
     console.log(`catch block: ${err.message}`);
 }
+
+
+/**
+ * Example 5 - .return(); 
+ */
+
+console.log("\n\n Example 5 - .return() \n");
+const gen5 = eg4(4);
+console.log(gen5.next("a")); //start: undefined
+console.log(gen5.next("b")); //0: b
+console.log(gen5.return("c")); //c 

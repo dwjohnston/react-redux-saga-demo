@@ -6,6 +6,17 @@
 - Who uses redux-saga?
 - Who knows what a javascript generator function is? 
 
+## About me - 
+
+I started a new job and they were using saga. 
+
+It turns out that it makes testing easier. 
+
+My testing philosophy: 
+- Testing should be easy. 
+- If it's easy, then developers are going to do it. 
+- As a general rule, if your code isn't easy to test, then it means there's something wrong with the code. 
+
 ## Our application 
 
 We have a simple application, 
@@ -51,10 +62,6 @@ Ok, but I hate this module mocking stuff.
 - Having to remember which functions are synchronous or asyncronous
 - Having issues if you're calling a function within the same module (the isSpecial function was initially that way)
 
-My testing philosophy: 
-- Testing should be easy. 
-- If it's easy, then developers are going to do it. 
-- As a general rule, if your code isn't easy to test, then it means there's something wrong with the code. 
 
 ## As it turns out - redux-saga happens to make this easier. 
 
@@ -95,8 +102,11 @@ We're making changes to the middleware only.
 
 **Show the new request objects**
 
-- Convention for react dispatches vs saga dispatches. 
+- We've renamed our action creators to request. 
+- And now we have all success objects. 
 
+- by convention - request objects should never go to the reducer. 
+- Redux reducers will still take actions of certain types, redux saga occurs after the reducers. 
 
 **Show the sagas**
 
@@ -106,6 +116,8 @@ Three main effects:
 - put (dispatch function)
 - call (call function)
 
+Note that these function are just objects. 
+
 - Root saga - like a root reducer, this is what got injected into the middleware
 - watchSagas - responsible intercepting certain actions, and telling them which saga to use to handle it. 
 
@@ -113,6 +125,6 @@ Three main effects:
 
 Lets look at our select user saga 
 
-
+Let's look at the fetch posts saga
 
 
