@@ -117,5 +117,6 @@ export default function* rootSaga() {
         watchFetchTodosForUser(),
         watchFetchUsers(),
         watchSelectUser(),
+        watchFatalError(),
     ])
 }

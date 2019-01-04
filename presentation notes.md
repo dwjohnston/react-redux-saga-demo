@@ -1,12 +1,3 @@
-# Todo: 
-
-- Function names are confusing
-- ~~Can you stop actions from being dispatched to store? ~~
-- Request vs dispatch vs success convention? 
-- Best testing structure practises? 
-
-
-
 ## Quick poll
 
 - Who here uses React
@@ -27,7 +18,9 @@ If a user has a post starting with 'voluptate', we also fetch their todos.
 
 If we encounter an API error, we'll display an error snackbar. 
 
-The point of this example is to demonstrate a action that is more that just a simple fetch of data, a real life example might be the user logs into their dashboard, and depending certain things specific to their logic, you're then going to fetch other particular bits of data. 
+The point of this example is to demonstrate a action that is more that just a simple fetch of data.
+
+A real life example might be the user logs into their dashboard, and depending certain things specific to their logic, you're then going to fetch other particular bits of data. 
 
 Note that I haven't done anything with loading cursors. Jake Moxey did a talk about this 
 

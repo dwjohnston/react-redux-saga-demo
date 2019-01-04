@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Card, ListItem, List, ListItemText, Typography } from '@material-ui/core';
-import { fetchPostsForUserRequest, selectUser } from '../redux/actions';
+import { fetchPostsForUserRequest, selectUserRequest } from '../redux/actions';
 
 const UserList = ({ classes, users, selectUser }) => {
     return (
@@ -36,7 +36,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = dispatch => {
     return {
-        selectUser: (id) => dispatch(selectUser(id))
+        selectUser: (id) => dispatch(selectUserRequest(id))
     };
 };
 export default connect(
