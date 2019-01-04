@@ -20,13 +20,16 @@ console.log(gen1.next()); //1
 console.log(gen1.next()); //2
 console.log(gen1.next()); //fin
 console.log(gen1.next()); //undefined
+console.log(gen1.next()); //undefined
+console.log(gen1.next()); //undefined
 
 /*
     Example 2 - Passing an value into the next() function
 */
 console.log("\n\nexample 2 - passing a value into the next function\n");
-const eg2 = function* (n) {
 
+
+const eg2 = function* (n) {
     let a;
     a = yield `start: ${a}`;
     for (let i = 0; i < n; i++) {

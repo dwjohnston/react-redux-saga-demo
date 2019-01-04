@@ -54,6 +54,8 @@ There are otherways we might structure our redux data, but that's not what we're
 
 **show react dispatching the action**
 
+Note about how redux thunk works - instead of dispatching an object, you can dispatch a function, which has dispatch as a parameter. 
+
 **show the action**
 
 **show testing the actions**
@@ -127,4 +129,12 @@ Lets look at our select user saga
 
 Let's look at the fetch posts saga
 
+
+Look at the tests. 
+
+
+- Summing up: 
+
+- This is a good way to get some easy testing going on with your middle ware. 
+All you need to do is where you have actions being dispatchd from react, then turn those into request objects, and then pull all of the logic out into the redux sagas, and have the redux sagas intercept them. 
 

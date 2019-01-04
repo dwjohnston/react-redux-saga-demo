@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
 const URI_USERS = '/users';
 const URI_POSTS = "/posts";
-const URI_TODOS = "/taaodos"
+const URI_TODOS = "/todos"
 
 export const makeApiCall = async function (uri) {
     try {

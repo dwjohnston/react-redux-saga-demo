@@ -20,8 +20,6 @@ export function* fetchPostsForUserSaga(action) {
     try {
         const posts = yield call(fetchPostsForUser, userId);
 
-
-
         //We could do: 
         //const posts = yield fetchPostsForUser(userId);
         //redux-saga handles yielded promises fine, 

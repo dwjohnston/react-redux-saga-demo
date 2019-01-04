@@ -10,7 +10,7 @@ describe("fetchPostForUserSaga", () => {
 
     describe("if API call is successful", () => {
 
-        describe("and if post IS special", () => {
+        describe("and there IS a special post", () => {
 
             it("calls the fetchPostsForUser api function, and dispatches a fetchTodos request ()", () => {
                 let gen = fetchPostsForUserSaga({
@@ -21,7 +21,6 @@ describe("fetchPostForUserSaga", () => {
                 });
 
                 const apiResponse = "foo";
-
                 expect(gen.next().value).toEqual(call(fetchPostsForUser, 1));
                 expect(gen.next(apiResponse).value).toEqual(put({
                     type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
@@ -38,7 +37,7 @@ describe("fetchPostForUserSaga", () => {
             });
         })
 
-        describe("and if post is NOT special", () => {
+        describe("and if there is NOT a special post", () => {
 
             it("calls the fetchPostsForUser api function ()", () => {
                 let gen = fetchPostsForUserSaga({
