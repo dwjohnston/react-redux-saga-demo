@@ -9,20 +9,22 @@ export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const FETCH_POSTS_FOR_USER_SUCCESS = 'FETCH_POSTS_FOR_USER_SUCCESS';
 export const FETCH_TODOS_FOR_USER_SUCCESS = "FETCH_TODOS_FOR_USER_SUCCESS";
 
-export const FATAL_ERROR = "FATAL_ERROR";
+export const FATAL_ERROR_REQUEST = "FATAL_ERROR_REQUEST";
+export const FATAL_ERROR_SUCCESS = "FATAL_ERROR_SUCCESS";
 
-export const SELECT_USER = "SELECT_USER";
+export const SELECT_USER_REQUEST = "SELECT_USER_REQUEST";
+export const SELECT_USER_SUCCESS = "SELECT_USER_SUCCESS";
 
-export const fatalError = err => ({
-    type: FATAL_ERROR,
+export const fatalErrorRequest = err => ({
+    type: FATAL_ERROR_REQUEST,
     payload: {
         message: err.message
     }
 });
 
 
-export const selectUser = id => ({
-    type: SELECT_USER,
+export const selectUserRequest = id => ({
+    type: SELECT_USER_REQUEST,
     payload: {
         id
     }

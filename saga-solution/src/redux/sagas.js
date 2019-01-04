@@ -7,12 +7,15 @@ import { hasSpecialPosts } from "../util/isSpecial";
 export function* selectUserSaga(action) {
     const id = action.payload.id;
 
+    yield put({
+        type: Actions.SELECT_USER_SUCCESS,
+        payload: action.payload,
+    });
+
     yield put(Actions.fetchPostsForUserRequest(id));
 }
 
-export function* watchSelectUser(action) {
-    yield takeEvery(Actions.SELECT_USER, selectUserSaga);
-}
+
 
 export function* fetchPostsForUserSaga(action) {
     const userId = action.payload.id;
@@ -21,7 +24,6 @@ export function* fetchPostsForUserSaga(action) {
         //We could do: 
         //const posts = yield fetchPostsForUser(userId);
         const posts = yield call(fetchPostsForUser, userId);
-        console.log(posts);
         yield put({
             type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
             payload: {
@@ -37,14 +39,10 @@ export function* fetchPostsForUserSaga(action) {
     }
 
     catch (err) {
-        yield put(Actions.fatalError(err));
+        yield put(Actions.fatalErrorRequest(err));
     }
 }
 
-export function* watchFetchPostsForUser(id) {
-    yield takeEvery(Actions.FETCH_POSTS_FOR_USER_REQUEST, fetchPostsForUserSaga);
-
-}
 
 export function* fetchTodosForUserSaga(action) {
     const id = action.payload.id;
@@ -61,13 +59,10 @@ export function* fetchTodosForUserSaga(action) {
     }
 
     catch (err) {
-        yield put(Actions.fatalError(err));
+        yield put(Actions.fatalErrorRequest(err));
     }
 }
 
-export function* watchFetchTodosForUser() {
-    yield takeEvery(Actions.FETCH_TODOS_FOR_USER_REQUEST, fetchTodosForUserSaga);
-}
 
 export function* fetchUsersSaga(action) {
 
@@ -85,14 +80,36 @@ export function* fetchUsersSaga(action) {
     }
 
     catch (err) {
-        yield put(Actions.fatalError(err));
+        yield put(Actions.fatalErrorRequest(err));
     }
 };
+
+export function* fatalErrorSaga(action) {
+    yield put({
+        type: Actions.FATAL_ERROR_SUCCESS,
+        payload: action.payload,
+    })
+}
+
+export function* watchSelectUser(action) {
+    yield takeEvery(Actions.SELECT_USER_REQUEST, selectUserSaga);
+}
+
+export function* watchFetchTodosForUser() {
+    yield takeEvery(Actions.FETCH_TODOS_FOR_USER_REQUEST, fetchTodosForUserSaga);
+}
 
 export function* watchFetchUsers() {
     yield takeEvery(Actions.FETCH_USERS_REQUEST, fetchUsersSaga);
 }
 
+export function* watchFetchPostsForUser(id) {
+    yield takeEvery(Actions.FETCH_POSTS_FOR_USER_REQUEST, fetchPostsForUserSaga);
+}
+
+export function* watchFatalError(id) {
+    yield takeEvery(Actions.FATAL_ERROR_REQUEST, fatalErrorSaga);
+}
 
 export default function* rootSaga() {
     yield all([

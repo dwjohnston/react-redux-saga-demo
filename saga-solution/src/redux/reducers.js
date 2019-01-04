@@ -33,7 +33,7 @@ const todos = (state = {}, action) => {
 const selectedUser = (state = { id: null }, action) => {
 
     switch (action.type) {
-        case Action.SELECT_USER: {
+        case Action.SELECT_USER_SUCCESS: {
             return action.payload;
         }
 
@@ -44,7 +44,7 @@ const selectedUser = (state = { id: null }, action) => {
 const error = (state = { message: null }, action) => {
 
     switch (action.type) {
-        case Action.FATAL_ERROR: return { message: action.payload.message };
+        case Action.FATAL_ERROR_SUCCESS: return { message: action.payload.message };
         default: return state;
     }
 }

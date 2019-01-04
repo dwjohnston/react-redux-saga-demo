@@ -8,16 +8,11 @@ import { bindActionCreators } from "redux";
 
 describe("fetchPostForUserSaga", () => {
 
-    beforeEach(() => {
-
-    });
-
     describe("if API call is successful", () => {
 
         describe("and if post IS special", () => {
 
-
-            it("calls the fetchPostsForUser api function ()", () => {
+            it("calls the fetchPostsForUser api function, and dispatches a fetchTodos request ()", () => {
                 let gen = fetchPostsForUserSaga({
                     type: "it doesn't matter",
                     payload: {
@@ -49,18 +44,18 @@ describe("fetchPostForUserSaga", () => {
                 let gen = fetchPostsForUserSaga({
                     type: "it doesn't matter",
                     payload: {
-                        id: 1
+                        id: 2
                     }
                 });
 
                 const apiResponse = "boo";
 
-                expect(gen.next().value).toEqual(call(fetchPostsForUser, 1));
+                expect(gen.next().value).toEqual(call(fetchPostsForUser, 2));
                 expect(gen.next(apiResponse).value).toEqual(put({
                     type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
                     payload: {
                         posts: apiResponse,
-                        userId: 1,
+                        userId: 2,
                     }
                 }));
                 expect(gen.next().value).toEqual(call(hasSpecialPosts, apiResponse));
@@ -72,17 +67,19 @@ describe("fetchPostForUserSaga", () => {
     })
 
     describe("if API call is not successful", () => {
-        let gen = fetchPostsForUserSaga({
-            type: "it doesn't matter",
-            payload: {
-                id: 1
-            }
+
+        it("dispatches a fatal error action", () => {
+            let gen = fetchPostsForUserSaga({
+                type: "it doesn't matter",
+                payload: {
+                    id: 3
+                }
+            });
+
+            expect(gen.next().value).toEqual(call(fetchPostsForUser, 3));
+            const apiResponse = new Error("An Error");
+            expect(gen.throw(apiResponse).value).toEqual(put(Actions.fatalErrorRequest(apiResponse)));
+            expect(gen.next().done).toEqual(true);
         });
-
-        expect(gen.next().value).toEqual(call(fetchPostsForUser, 1));
-        const apiResponse = new Error("An Error");
-        expect(gen.throw(apiResponse).value).toEqual(put(Actions.fatalError(apiResponse)));
-        expect(gen.next().done).toEqual(true);
-    });
-
+    })
 })

@@ -1,7 +1,7 @@
 # Todo: 
 
 - Function names are confusing
-- Can you stop actions from being dispatched to store? 
+- ~~Can you stop actions from being dispatched to store? ~~
 - Request vs dispatch vs success convention? 
 - Best testing structure practises? 
 
