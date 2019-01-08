@@ -98,42 +98,61 @@ describe("fetchPostsForUserRequest", () => {
 
         });
 
-        // it("if any of the posts are special, it also fetches todos", async () => {
-        //     special.hasSpecialPosts = jest.fn().mockReturnValue(true);
-        //     const mockTodoFetchResponse = "some obj";
-        //     Actions.fetchTodosForUserRequest = jest.fn().mockReturnValue(mockTodoFetchResponse);
-        //     const action = Actions.fetchPostsForUserRequest(6);
-        //     //Redux thunk calls the function
-        //     await action(mockDispatch);
-        //     //Check that the api function was called
-        //     expect(api.fetchPostsForUser).toBeCalledWith(6);
-        //     expect(mockDispatch).toBeCalledWith({
-        //         type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
-        //         payload: {
-        //             posts: apiResponse,
-        //             userId: 6
-        //         }
-        //     });
 
-        //     //This doesn't work because we didn't actually mock the function that was called. 
-        //     expect(mockDispatch).toHaveBeenLastCalledWith(mockTodoFetchResponse);
-        // });
+        it("if any of the posts are special, it also fetches todos", async () => {
+            special.hasSpecialPosts = jest.fn().mockReturnValue(true);
 
-        // it("some function equality examples", () => {
+            //Mocking the action creator
+            const mockedThunk = () => "mocked thunk";
 
-        //     const eg1 = () => {
-        //         console.log("hello");
-        //     };
+            //Mock the whole module, but keep the functionality of our original function
+            function mockFunctions() {
+                const original = require.requireActual('../actions');
+                return {
+                    ...original, //Pass down all the exported objects
+                    fetchTodosForUserRequest: mockedThunk
+                }
+            }
 
-        //     const genFn = () => () => {
-        //         console.log("world");
-        //     }
+            //Import our newly mocked module
+            jest.mock('../actions', () => mockFunctions());
+            const _actions = require.requireMock('../actions');
+            console.log(_actions);
 
-        //     expect(eg1).toEqual(eg1);   //Pass
-        //     expect(genFn()).toEqual(genFn()); //Fail
+            const action = _actions.fetchPostsForUserRequest(6);
+            //Redux thunk calls the function
+            await action(mockDispatch);
+            //Check that the api function was called
+            expect(api.fetchPostsForUser).toBeCalledWith(6);
+            expect(mockDispatch).toBeCalledWith({
+                type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
+                payload: {
+                    posts: apiResponse,
+                    userId: 6
+                }
+            });
+
+            //Fails. The original funtion still calls the original function
+            expect(mockDispatch).toHaveBeenLastCalledWith("mocked thunk");
+
+        });
 
 
-        // });
+        it("some function equality examples", () => {
+
+            const eg1 = () => {
+                console.log("hello");
+            };
+
+            const genFn = () => () => {
+                console.log("world");
+            }
+
+            expect(eg1).toEqual(eg1);   //Pass
+            //expect(genFn()).toEqual(genFn()); //Fail
+
+
+        });
     });
 
     it("if api call a failure, it dispatches a failure action", async () => {

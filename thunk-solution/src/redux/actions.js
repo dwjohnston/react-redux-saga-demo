@@ -32,21 +32,23 @@ export const fetchUsersRequest = () => async (dispatch) => {
     }
 }
 
-export const fetchTodosForUserRequest = userId => async dispatch => {
+export const fetchTodosForUserRequest = userId => {
+    console.log("create thunk");
+    return async dispatch => {
+        try {
+            const todos = await fetchTodosForUser(userId);
 
-    try {
-        const todos = await fetchTodosForUser(userId);
-
-        dispatch({
-            type: FETCH_TODOS_FOR_USER_SUCCESS,
-            payload: {
-                todos,
-                userId,
-            }
-        });
-    }
-    catch (err) {
-        dispatch(fatalError(err));
+            dispatch({
+                type: FETCH_TODOS_FOR_USER_SUCCESS,
+                payload: {
+                    todos,
+                    userId,
+                }
+            });
+        }
+        catch (err) {
+            dispatch(fatalError(err));
+        }
     }
 }
 
