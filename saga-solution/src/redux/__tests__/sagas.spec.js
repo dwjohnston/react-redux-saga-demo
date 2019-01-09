@@ -1,9 +1,8 @@
 import { fetchPostsForUserSaga } from "../sagas";
 import * as Actions from "../actions";
-import { put, takeEvery, all, call } from 'redux-saga/effects'
+import { put, call } from 'redux-saga/effects'
 import { hasSpecialPosts } from "../../util/isSpecial";
-import { fetchUsers, fetchPostsForUser, fetchTodosForUser } from "../../api";
-import { bindActionCreators } from "redux";
+import { fetchPostsForUser, } from "../../api";
 
 
 describe("fetchPostForUserSaga", () => {

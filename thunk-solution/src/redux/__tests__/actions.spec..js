@@ -79,6 +79,7 @@ describe("fetchPostsForUserRequest", () => {
 
         it("if any of the posts are special, it also fetches todos", async () => {
             special.hasSpecialPosts = jest.fn().mockReturnValue(true);
+
             const action = Actions.fetchPostsForUserRequest(6);
             //Redux thunk calls the function
             await action(mockDispatch);
@@ -117,8 +118,6 @@ describe("fetchPostsForUserRequest", () => {
             //Import our newly mocked module
             jest.mock('../actions', () => mockFunctions());
             const _actions = require.requireMock('../actions');
-            console.log(_actions);
-
             const action = _actions.fetchPostsForUserRequest(6);
             //Redux thunk calls the function
             await action(mockDispatch);
@@ -132,7 +131,7 @@ describe("fetchPostsForUserRequest", () => {
                 }
             });
 
-            //Fails. The original funtion still calls the original function
+            //Fails. The original funtion still calls the original dependant function
             expect(mockDispatch).toHaveBeenLastCalledWith("mocked thunk");
 
         });
@@ -149,9 +148,7 @@ describe("fetchPostsForUserRequest", () => {
             }
 
             expect(eg1).toEqual(eg1);   //Pass
-            //expect(genFn()).toEqual(genFn()); //Fail
-
-
+            // expect(genFn()).toEqual(genFn()); //Fail
         });
     });
 
