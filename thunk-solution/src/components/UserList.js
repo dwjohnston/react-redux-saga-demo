@@ -10,7 +10,10 @@ const UserList = ({ classes, users, selectUser }) => {
             <Typography variant="h2">Users </Typography>
             <List component="nav">
                 {users.map(user => (
-                    <ListItem button key={user.id} onClick={() => selectUser(user.id)} >
+                    <ListItem 
+                        button 
+                        key={user.id}
+                        onClick={() => selectUser(user.id)} >
                         <ListItemText primary={user.name} />
                     </ListItem>
                 ))}

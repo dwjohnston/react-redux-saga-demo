@@ -30,12 +30,12 @@ console.log("\n\nexample 2 - passing a value into the next function\n");
 
 
 const eg2 = function* (n) {
-    let a;
-    a = yield `start: ${a}`;
+    let myValue;
+    myValue = yield `start: ${myValue}`;
     for (let i = 0; i < n; i++) {
-        a = yield `${i}: ${a} `;
+        myValue = yield `${i}: ${myValue} `;
     }
-    a = yield `fin: ${a} `;
+    myValue = yield `fin: ${myValue} `;
 }
 
 const gen2 = eg2(3);
@@ -119,3 +119,4 @@ const gen5 = eg4(4);
 console.log(gen5.next("a")); //{value: 'start: undefined', done: false}
 console.log(gen5.next("b")); //{value: '0: b', done: false}
 console.log(gen5.return("c")); //{value: 'c', done: true} 
+console.log(gen5.next("d")); //{value: undefined, done: true}

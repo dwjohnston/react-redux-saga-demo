@@ -1,4 +1,4 @@
-import { fetchUsers, fetchPostsForUser, fetchTodosForUser } from "../api";
+import { apiFetchUsers, apiFetchPostsForUser, apiFetchTodosForUser } from "../api";
 import { hasSpecialPosts } from "../util/isSpecial";
 
 export const FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";

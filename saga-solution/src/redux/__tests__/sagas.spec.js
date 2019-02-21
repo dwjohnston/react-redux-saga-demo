@@ -2,7 +2,7 @@ import { fetchPostsForUserSaga } from "../sagas";
 import * as Actions from "../actions";
 import { put, call } from 'redux-saga/effects'
 import { hasSpecialPosts } from "../../util/isSpecial";
-import { fetchPostsForUser, } from "../../api";
+import { apiFetchPostsForUser, } from "../../api";
 
 
 describe("fetchPostForUserSaga", () => {
@@ -12,7 +12,7 @@ describe("fetchPostForUserSaga", () => {
         describe("and there IS a special post", () => {
 
             it("calls the fetchPostsForUser api function, and dispatches a fetchTodos request ()", () => {
-                let gen = fetchPostsForUserSaga({
+                const gen = fetchPostsForUserSaga({
                     type: "it doesn't matter",
                     payload: {
                         id: 1
@@ -20,7 +20,7 @@ describe("fetchPostForUserSaga", () => {
                 });
 
                 const apiResponse = "foo";
-                expect(gen.next().value).toEqual(call(fetchPostsForUser, 1));
+                expect(gen.next().value).toEqual(call(apiFetchPostsForUser, 1));
                 expect(gen.next(apiResponse).value).toEqual(put({
                     type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
                     payload: {
@@ -48,7 +48,7 @@ describe("fetchPostForUserSaga", () => {
 
                 const apiResponse = "boo";
 
-                expect(gen.next().value).toEqual(call(fetchPostsForUser, 2));
+                expect(gen.next().value).toEqual(call(apiFetchPostsForUser, 2));
                 expect(gen.next(apiResponse).value).toEqual(put({
                     type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
                     payload: {
@@ -74,7 +74,7 @@ describe("fetchPostForUserSaga", () => {
                 }
             });
 
-            expect(gen.next().value).toEqual(call(fetchPostsForUser, 3));
+            expect(gen.next().value).toEqual(call(apiFetchPostsForUser, 3));
             const apiResponse = new Error("An Error");
             expect(gen.throw(apiResponse).value).toEqual(put(Actions.fatalErrorRequest(apiResponse)));
             expect(gen.next().done).toEqual(true);

@@ -1,4 +1,4 @@
-import { fetchUsers, fetchPostsForUser, fetchTodosForUser } from "../api";
+import { apiFetchUsers, apiFetchPostsForUser, apiFetchTodosForUser } from "../api";
 import { hasSpecialPosts } from "../util/isSpecial";
 
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
@@ -19,7 +19,7 @@ export const fatalError = err => ({
 export const fetchUsersRequest = () => async (dispatch) => {
 
     try {
-        const users = await fetchUsers();
+        const users = await apiFetchUsers();
         dispatch({
             type: FETCH_USERS_SUCCESS,
             payload: {
@@ -34,7 +34,7 @@ export const fetchUsersRequest = () => async (dispatch) => {
 
 export const fetchTodosForUserRequest = userId => async dispatch => {
     try {
-        const todos = await fetchTodosForUser(userId);
+        const todos = await apiFetchTodosForUser(userId);
 
         dispatch({
             type: FETCH_TODOS_FOR_USER_SUCCESS,
@@ -67,7 +67,7 @@ export const selectUser = id => async dispatch => {
 export const fetchPostsForUserRequest = (userId) => async (dispatch) => {
 
     try {
-        const posts = await fetchPostsForUser(userId);
+        const posts = await apiFetchPostsForUser(userId);
         dispatch({
             type: FETCH_POSTS_FOR_USER_SUCCESS,
             payload: {

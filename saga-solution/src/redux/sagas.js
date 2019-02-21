@@ -1,6 +1,6 @@
 import * as Actions from "./actions";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import { fetchUsers, fetchPostsForUser, fetchTodosForUser } from "../api";
+import { apiFetchUsers, apiFetchPostsForUser, apiFetchTodosForUser } from "../api";
 import { hasSpecialPosts } from "../util/isSpecial";
 
 export function* selectUserSaga(action) {
@@ -18,7 +18,9 @@ export function* fetchPostsForUserSaga(action) {
     const userId = action.payload.id;
 
     try {
-        const posts = yield call(fetchPostsForUser, userId);
+        const posts = yield call(apiFetchPostsForUser, userId);
+        console.log(call(apiFetchPostsForUser, userId)); //demo
+
 
         //We could do: 
         //const posts = yield fetchPostsForUser(userId);
@@ -26,7 +28,6 @@ export function* fetchPostsForUserSaga(action) {
         //But the advantage of using call is it makes testing easier.
 
         //call() just creates an object, it doesn't actually do anything.
-        console.log(call(fetchPostsForUser, userId)); //demo
 
         yield put({
             type: Actions.FETCH_POSTS_FOR_USER_SUCCESS,
@@ -52,7 +53,7 @@ export function* fetchTodosForUserSaga(action) {
     const id = action.payload.id;
 
     try {
-        const todos = yield call(fetchTodosForUser, id);
+        const todos = yield call(apiFetchTodosForUser, id);
         yield put({
             type: Actions.FETCH_TODOS_FOR_USER_SUCCESS,
             payload: {
@@ -73,7 +74,7 @@ export function* fetchUsersSaga(action) {
     const id = action.payload.id;
 
     try {
-        const users = yield call(fetchUsers, id);
+        const users = yield call(apiFetchUsers, id);
         yield put({
             type: Actions.FETCH_USERS_SUCCESS,
             payload: {
@@ -107,7 +108,7 @@ export function* watchFetchUsers() {
     yield takeEvery(Actions.FETCH_USERS_REQUEST, fetchUsersSaga);
 }
 
-export function* watchFetchPostsForUser(id) {
+export function* watchFetchPostsForUser() {
     yield takeEvery(Actions.FETCH_POSTS_FOR_USER_REQUEST, fetchPostsForUserSaga);
 }
 

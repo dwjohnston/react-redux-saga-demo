@@ -15,15 +15,15 @@ export const makeApiCall = async function (uri) {
     }
 }
 
-export const fetchUsers = async function () {
+export const apiFetchUsers = async function () {
     return makeApiCall(URI_USERS);
 }
 
-export const fetchPostsForUser = async function (id) {
+export const apiFetchPostsForUser = async function (id) {
     return makeApiCall(`${URI_POSTS}?userId=${id}`);
 }
 
-export const fetchTodosForUser = async function (id) {
+export const apiFetchTodosForUser = async function (id) {
     return makeApiCall(`${URI_TODOS}?userId=${id}`);
 }
 
@@ -31,7 +31,7 @@ export const fetchTodosForUser = async function (id) {
 
 /**Not using - delete */
 export const fetchPostsForUserFiltered = async function (id) {
-    const posts = await fetchPostsForUser(id);
+    const posts = await apiFetchPostsForUser(id);
     return filterPosts(posts);
 }
 
