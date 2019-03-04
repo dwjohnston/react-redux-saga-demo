@@ -2,7 +2,7 @@
 
 This repo was used in giving presentations at MelbJs and the Melbourne React Meetup in January and February 2019. 
 
-See the [presentation notes]("./presentation notes.md") for more details - though they're pretty scrappy, really for my eyes. 
+See the [presentation notes](./presentation%20notes.md) for more details - though they're pretty scrappy, really for my eyes. 
 
 Three source folders: 
 
